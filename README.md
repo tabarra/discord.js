@@ -3,5 +3,5 @@
 The objective of this fork is to solve D.JS v11 not working on guilds with Stage channels.  
 Because you know... sometimes updating is just not an option for some time.
 
-**Do not use it!**
-**Or do use, I'm not your mom...**
+**Do not use it!**  
+**Or do, I'm not your mom...**
