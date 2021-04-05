@@ -1,5 +1,5 @@
 {
-  "name": "discord.js",
+  "name": "@tabarra/discord.js",
   "version": "11.6.5",
   "description": "A powerful library for interacting with the Discord API",
   "main": "./src/index",
