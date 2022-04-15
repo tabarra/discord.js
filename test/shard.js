@@ -1,18 +1,23 @@
-const Discord = require('../');
-const { token } = require('./auth.json');
+'use strict';
 
-const client = new Discord.Client({
-  shardId: process.argv[2],
+const process = require('node:process');
+const { setTimeout } = require('node:timers');
+const { token } = require('./auth.json');
+const { Client, Intents } = require('../src');
+
+const client = new Client({
+  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+  shards: process.argv[2],
   shardCount: process.argv[3],
 });
 
-client.on('message', msg => {
+client.on('messageCreate', msg => {
   if (msg.content.startsWith('?eval') && msg.author.id === '66564597481480192') {
     try {
       const com = eval(msg.content.split(' ').slice(1).join(' '));
-      msg.channel.sendMessage('```\n' + com + '```');
+      msg.channel.send(com, { code: true });
     } catch (e) {
-      msg.channel.sendMessage('```\n' + e + '```');
+      msg.channel.send(e, { code: true });
     }
   }
 });
@@ -20,12 +25,13 @@ client.on('message', msg => {
 process.send(123);
 
 client.on('ready', () => {
-  console.log('Ready', client.options.shardId);
-  if (client.options.shardId === 0)
+  console.log('Ready', client.options.shards);
+  if (client.options.shards === 0) {
     setTimeout(() => {
       console.log('kek dying');
       client.destroy();
-    }, 5000);
+    }, 5_000);
+  }
 });
 
 client.login(token).catch(console.error);
